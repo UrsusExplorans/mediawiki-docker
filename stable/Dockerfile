@@ -50,7 +50,7 @@ RUN ls -lah /var/www/
 # Math extension
 ENV EXTENSION_MATH_VERSION=${MEDIAWIKI_BRANCH}-05166d9
 RUN curl -s -o /tmp/math.tar.gz https://extdist.wmflabs.org/dist/extensions/Math-${EXTENSION_MATH_VERSION}.tar.gz && \
-    tar -xzf /tmp/math.tar.gz -C /var/www/extensions && \
+    tar -xzf /tmp/math.tar.gz -C /var/www/html/extensions && \
     rm /tmp/math.tar.gz
 #RUN apt-get update && apt-get install -y software-properties-common
 #RUN add-apt-repository ppa:legoktm/mediawiki-lts && apt-get update && apt-get install texvc
@@ -60,5 +60,5 @@ RUN echo deb http://ftp.de.debian.org/debian/ jessie-backports main contrib non-
 RUN apt-get update
 RUN apt-get -t jessie-backports install texvc -y
 
-VOLUME ["/var/www/images", "/var/www/data"]
+VOLUME ["/var/www/html/images", "/var/www/data"]
 EXPOSE 80 443
