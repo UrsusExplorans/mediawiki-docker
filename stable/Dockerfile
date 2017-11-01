@@ -44,3 +44,19 @@ RUN curl -fSL "https://releases.wikimedia.org/mediawiki/${MEDIAWIKI_MAJOR_VERSIO
 	&& tar -xz --strip-components=1 -f mediawiki.tar.gz \
 	&& rm mediawiki.tar.gz \
 	&& chown -R www-data:www-data extensions skins cache images
+
+# Math extension
+ARG EXTENSION_MATH_VERSION=REL1_29-05166d9
+RUN curl -s -o /tmp/math.tar.gz https://extdist.wmflabs.org/dist/extensions/Math-$EXTENSION_MATH_VERSION.tar.gz && \
+    tar -xzf /tmp/math.tar.gz -C /var/www/extensions && \
+    rm /tmp/math.tar.gz
+#RUN apt-get update && apt-get install -y software-properties-common
+#RUN add-apt-repository ppa:legoktm/mediawiki-lts && apt-get update && apt-get install texvc
+#RUN apt-get install mediawiki-math-texvc
+#RUN echo "#Backports" >> /etc/apt/sources.list && echo deb http://ftp.de.debian.org/debian/ jessie-backports main contrib non-free >> /etc/apt/sources.list
+RUN echo deb http://ftp.de.debian.org/debian/ jessie-backports main contrib non-free >> /etc/apt/sources.list
+RUN apt-get update
+RUN apt-get -t jessie-backports install texvc -y
+
+VOLUME ["/var/www/images", "/var/www/data"]
+EXPOSE 80 443
