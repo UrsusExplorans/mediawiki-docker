@@ -45,6 +45,8 @@ RUN curl -fSL "https://releases.wikimedia.org/mediawiki/${MEDIAWIKI_MAJOR_VERSIO
 	&& rm mediawiki.tar.gz \
 	&& chown -R www-data:www-data extensions skins cache images
 
+RUN ls -lah /var/www/
+
 # Math extension
 ENV EXTENSION_MATH_VERSION=${MEDIAWIKI_BRANCH}-05166d9
 RUN curl -s -o /tmp/math.tar.gz https://extdist.wmflabs.org/dist/extensions/Math-${EXTENSION_MATH_VERSION}.tar.gz && \
